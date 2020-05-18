@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.boottest.mapper.WeatherMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.boottest.model.Weather">
+        <result column="date" jdbcType="VARCHAR" property="date" />
+        <result column="week" jdbcType="VARCHAR" property="week" />
+        <result column="img" jdbcType="VARCHAR" property="img" />
+        <result column="weather" jdbcType="VARCHAR" property="weather" />
+        <result column="temperature" jdbcType="VARCHAR" property="temperature" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        date, week, img, weather, temperature
+    </sql>
+
+    <select id="findAll" resultType="com.example.boottest.model.Weather">
+        SELECT * FROM weather
+    </select>
+
+    <select id="getOneBydw" parameterType="string" resultType="com.example.boottest.model.Weather">
+        SELECT *
+        <!--<include refid="Base_Column_List" />-->
+        FROM weather
+        WHERE date = #{date}
+        AND week = #{week}
+    </select>
+
+    <insert id="insertWeather" parameterType="com.example.boottest.model.Weather" keyProperty="id" keyColumn="id">
+        <!-- 插入数据:返回记录主键id值 -->
+        INSERT INTO
+            weather
+            (date,week,img,weather,temperature)
+        VALUES
+            (#{date}, #{week}, #{img}, #{weather},#{temperature});
+    </insert>
+
+    <update id="updateWeather" parameterType="com.example.boottest.model.Weather" keyProperty="id" keyColumn="id">
+        UPDATE
+            weather
+        SET
+            <if test="week != null">week = #{week},</if>
+            <if test="img != null">img = #{img},</if>
+            weather = #{weather}
+        WHERE
+            date = #{date}
+    </update>
+
+    <update id="deleteWeather" parameterType="String" keyProperty="id" keyColumn="id">
+        DELETE
+        FROM
+            weather
+        WHERE
+            date = #{date}
+        AND
+            week = #{week}
+    </update>
+
+</mapper>
