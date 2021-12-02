@@ -1,11 +1,12 @@
 package com.example.boottest.model;
 
 /**
- * @author: xinchao.wang
+ * @author:
  * @date: 2019-08-27 11:16
  * @description:
  */
 public class Weather {
+
     private String date;
     private String week;
     private String img;
